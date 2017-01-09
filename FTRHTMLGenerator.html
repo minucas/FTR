@@ -1,0 +1,255 @@
+
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>
+	<title>FTR字幕组作品发布 HTML代码生成器</title> 
+	
+	<script type="text/javascript">
+		function generate(){
+
+			var bilibiliURL = document.getElementById("biliURL").value;
+
+			var matchDate = document.getElementById("matchYear").value +"年"+document.getElementById("mathMonth").value+"月"+document.getElementById("matchDay").value+"日";
+			var produceDate = document.getElementById("produceYear").value +"-"+document.getElementById("produceMonth").value+"-"+document.getElementById("produceDay").value;
+			var matchDetail = matchDate +"  "+ document.getElementById("matchType").value + document.getElementById("matchProgress").value +" "+ document.getElementById("homeTeam").value +" "+ document.getElementById("homeScore").value +"-"+ document.getElementById("awayScore").value +" "+ document.getElementById("awayTeam").value +" "+ document.getElementById("videoType").value ;
+			var title = document.getElementById("mainTitle").value;
+
+			var imgURL = document.getElementById("screenshotURL").value;
+			var keyword1 = document.getElementById("keyword1").value;
+			var keyword2 = document.getElementById("keyword2").value;
+			var keyword3 = document.getElementById("keyword3").value;
+			var keyword4 = document.getElementById("keyword4").value;
+			var keyword5 = document.getElementById("keyword5").value;
+
+			var worker1 = document.getElementById("dictationandtranslation").value;
+			var worker2 = document.getElementById("verification").value;
+			var worker3 = document.getElementById("timeline").value;
+			var worker4 = document.getElementById("compression").value;
+
+			var webHead = "";
+			var imgnKeywords = "";
+			var webVideo = "";
+			var webTail = "";
+
+
+//			题头部分
+			webHead = 
+	            "\t\t\t<!--03.文字内容左对齐-->\n"+
+	            "\t\t\t<br>\n"+
+	            "\t\t\t<br>\n"+
+	            "\t\t\t<div align=\"left\" style=\"color:#000000; font-size: 16px; font-weight:normal; font-family:微软雅黑;\">\n"+
+	            "\t\t\t\t　　" +matchDetail+ "\n"+
+	            "\t\t\t</div>\n"+
+	            "\t\t\t<br>\n"+
+	            "\t\t\t<div align=\"center\" style=\"color:red; font-size: 24px; font-weight:bold; font-family:微软雅黑;\">\n"+
+	            "\t\t\t\t" +title+ "\n"+
+	            "\t\t\t</div>\n"+
+	            "\t\t\t<div align=\"right\" style=\"color:#ff373B; font-size: 14px; font-weight:bold; font-family:微软雅黑;\">\n"+
+	            "\t\t\t\t" +produceDate+ "　　\n"+
+	            "\t\t\t</div>\n"+
+	            "\t\t\t<br>\n"+
+	            "\t\t\t<br>\n"+
+	            "\t\t\t<br>\n";
+
+
+//			截图部分
+			if(imgURL != ""){
+				imgnKeywords = 
+				"\t\t\t\t<!--插入截图 开始-->\n"+
+				"\t\t\t\t<!--截图框架 开始-->\n"+
+				"\t\t\t\t<div align=\"center\">\n"+
+				"\t\t\t\t\t<img src=\"" +imgURL+ "\"style=\"width:650px;\">\n"+
+				"\t\t\t\t</div>\n"+
+				"\t\t\t\t<!--图片框架 结束-->\n";
+console.log(keyword1);
+				if (keyword1!="") {
+					imgnKeywords += 
+					"\t\t\t\t<!--关键词框架 开始-->\n"+
+					"\t\t\t\t<br>\n"+
+					"\t\t\t\t<div align=\"center\">\n"+
+					"\t\t\t\t\t<div style=\"text-align:left;width:650px;\">\n"+
+					"\t\t\t\t\t\t<span style=\"color:#000000; font-size: 16px; font-weight:bold; font-family:微软雅黑;\">\n"+
+					"\t\t\t\t\t\t\t关键词：\n"+
+					"\t\t\t\t\t\t</span>\n"+
+					"\t\t\t\t\t\t<span style=\"color:#ff373B; font-size: 16px; font-weight:bold; font-family:微软雅黑;\">\n"+
+                    "\t\t\t\t\t\t\t"+ keyword1;
+					
+					if (keyword2!="") {
+						imgnKeywords +=
+						"　" + keyword2;
+						
+						if (keyword3!="") {
+							imgnKeywords +=
+							"　" + keyword3;
+						
+							if (keyword4!="") {
+								imgnKeywords +=
+								"　" + keyword4;
+
+								if (keyword5!="") {
+									imgnKeywords +=
+									"　" + keyword5;
+
+								};
+							};
+						};
+					}
+
+					imgnKeywords += 
+					"\n"+
+					"\t\t\t\t\t\t</span>\n"+
+                    "\t\t\t\t\t</div>\n"+
+                	"\t\t\t\t</div>\n"+
+                	"\t\t\t\t<!--关键词框架 结束-->\n";
+				}
+
+				imgnKeywords +=
+				"\t\t\t\t<br>\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t\t<!--插入截图 结束-->\n"
+			}else{
+				imgnKeywords = "";
+			};
+
+
+//			视频部分
+
+			webVideo = 
+				"\t\t\t\t<br>\n"+
+                "\t\t\t\t<!--04.视频居中-->\n"+
+                "\t\t\t\t<div align=\"center\">\n"+
+                "\t\t\t\t\t" + generateBilibiliEmbed(getBilibiliId(bilibiliURL),650,500) + "\n"+
+                "\t\t\t\t\t<br>\n"+
+                "\t\t\t\t<br>\n"+
+                "\t\t\t\t<div style=\"text-align: center;\">\n"+
+                "\t\t\t\t\t<b>在线观看：</b>\n"+
+                "\t\t\t\t</div>\n"+
+                "\t\t\t\t<div style=\"text-align: center;\">\n"+
+                "\t\t\t\t\t<a class=\"u\" target=\"_blank\" href=\"" + bilibiliURL + "\">\n"+
+                "\t\t\t\t\t\t\tBilibili地址</a>\n"+
+                "\t\t\t\t</div>\n"+
+                "\t\t\t\t<br>\n";
+
+
+
+//			广告部分
+			webTail = 
+				"\t\t\t\t<!--分割线-->\n"+
+                "\t\t\t\t<hr>\n"+
+                "\t\t\t\t<!--分割线 结束-->\n"+
+                "\t\t\t\t<br>\n"+
+                "\t\t\t\t<!--以下框架居中-->\n"+
+                "\t\t\t\t<div align=\"center\">\n"+
+                "\t\t\t\t\t<!--宽度限定90%，文字左对齐-->\n"+
+                "\t\t\t\t\t<div style=\"width:90%;text-align:left; font-size:16px; font-weight:bold; font-family:微软雅黑;\">\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t　　听　译："+worker1+"\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t　　校　对："+worker2+"\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t　　时间轴："+worker3+"\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t　　后　期："+worker4+"\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t\t<div style=\"width:90%;text-align:left; font-size:17px; font-weight:normal; font-family:微软雅黑;\">\n"+
+                "\t\t\t\t\t\t\t<span style=\"font-weight:bold; font-size:19px; color:red;\">Fred the RED</span>\n"+
+                "\t\t\t\t\t\t\t用户组现招收各方高手(视频听译&制作，长文翻译)。不要担心门槛高，只要你有一颗为魔区添砖加瓦的心，表傲娇啦，表害羞啦，表犹豫啦，我们都张开双臂欢迎你的加入！有意者请联系@crecent ~\n"+
+                "\t\t\t\t\t\t</div>\n"+
+                "\t\t\t\t\t\t<br>\n"+
+                "\t\t\t\t\t</div>\n"+
+                "\t\t\t\t\t<!--分割线后 90%宽度框架 结束-->\n"+
+                "\t\t\t\t</div>\n"+
+                "\t\t\t\t<!--分割线后框架 结束-->\n"+
+            	"\t\t\t</div>\n"+
+	            "\t\t\t<!--左对齐标签 结束-->\n"+
+	            "\t\t\t<br>\n";
+
+
+			
+			document.getElementById("result").value = webHead + imgnKeywords + webVideo + webTail;
+		}
+
+		//从URL提取 哔哩哔哩 av号
+		function getBilibiliId(bilibiliURL){
+			return bilibiliURL.slice( bilibiliURL.lastIndexOf("/av")+3, bilibiliURL.lastIndexOf('/'));
+		}
+		//哔哩哔哩 根据av号生成嵌入式代码
+		function generateBilibiliEmbed(bilibiliId, width, height){
+			return ("<embed id=\"BilibiliVersion\" width=\""+width+"\" height=\""+height+"\" wmode=\"transparent\" quality=\"high\" allowfullscreen=\"true\" flashvars=\"playMovie=true&amp;auto=1\" pluginspage=\"http://get.adobe.com/cn/flashplayer/\" allowscriptaccess=\"never\" src=\"http://static.hdslb.com/miniloader.swf?aid="
+			+bilibiliId+
+			"&amp;page=1\" type=\"application/x-shockwave-flash\" style=\"visibility: visible;\">");
+		}
+
+
+	</script>
+</head>  
+
+
+
+
+
+<body>
+	<span style="font-size:22px;">FTR字幕组作品发布页 HTML生成器</span>
+	<br >
+	<br >
+	<br >
+	<input name="gen1" onclick="generate();" type="button" value=" 　生　　成　" />
+	<br >
+	<br >
+
+	<br ><br >
+	
+	
+	哔哩哔哩网址：　<input type="text" id="biliURL" size="60"/>　　　　例如：http://www.bilibili.com/video/av2218534/
+	<br /><br />
+
+	<!--赛事信息-->
+	比赛日期：　<input type="text" id="matchYear" size="3"/>&nbsp;年&nbsp;<input type="text" id="mathMonth" size="1"/>&nbsp;月&nbsp;<input type="text" id="matchDay" size="1"/>&nbsp;日<br><br>
+	赛事性质：　<input type="text" id="matchType" size="15"/>　　　　例如：英超 or 足总杯<br><br>
+	赛事进度：　<input type="text" id="matchProgress" size="15"/>　　　　例如：第39轮 or 第四轮重赛<br><br>
+	主　　队：　<input type="text" id="homeTeam" size="15"/><br><br>
+	客　　队：　<input type="text" id="awayTeam" size="15"/><br><br>
+	比　　分：　<input type="text" id="homeScore" size="1"/> -- <input type="text" id="awayScore" size="1"/><br><br>
+	制作日期：　<input type="text" id="produceYear" size="3"/>&nbsp;年&nbsp;<input type="text" id="produceMonth" size="1"/>&nbsp;月&nbsp;<input type="text" id="produceDay" size="1"/>&nbsp;日<br><br>
+	视频性质：　<input type="text" id="videoType" size="10" />　　　　例如：赛后采访 or MOTD or 空白
+
+	<br /><br />
+	<br /><br />
+
+	标　题：　　 <input type="text" id="mainTitle" size="45"/><br><br>
+	截图URL：　　<input type="text" id="screenshotURL" size="45"/>　　　　使用缩略图，原图太大不要使用<br><br>
+	关键词（最多五个）：<input type="text" id="keyword1" size="8"/>&nbsp;&nbsp;<input type="text" id="keyword2" size="8"/>&nbsp;&nbsp;<input type="text" id="keyword3" size="8"/>&nbsp;&nbsp;<input type="text" id="keyword4" size="8"/>&nbsp;&nbsp;<input type="text" id="keyword5" size="8"/>
+	<br /><br />
+	<br /><br />
+	
+
+	听　译：　<input type="text" id="dictationandtranslation"/>
+	<br /><br />
+	校　对：　<input type="text" id="verification"/>
+	<br /><br />
+	时间轴：　<input type="text" id="timeline"/>
+	<br /><br />
+	压　制：　<input type="text" id="compression"/>
+	<br /><br />
+	<br /><br />
+
+
+	<input name="gen2" onclick="generate();" type="button" value=" 　生　　成　" />
+	<br >
+	<br >
+	<br >
+	<textarea cols="150" id="result" name="result" rows="30"></textarea>
+	<p></p>
+	<br ><br >
+	<br ><br >
+</body>  
+</html>  
